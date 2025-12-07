@@ -46,29 +46,36 @@ public class MenuHorarios {
         }
 
         if (eleccion == 1) {
-            System.out.print("Ingrese su ID de usuario: ");
-            int id = Integer.parseInt(sc.nextLine());
+            try {
+                System.out.print("Ingrese su ID de usuario: ");
+                int id = Integer.parseInt(sc.nextLine());  // ← aquí suele ocurrir el error
 
-            String tipo = obtenerTipoUsuario(id);
-            if (tipo == null) {
-                System.out.println("Usuario no encontrado en la base de datos.");
-                return;
-            }
+                String tipo = obtenerTipoUsuario(id);
+                if (tipo == null) {
+                    System.out.println("Usuario no encontrado en la base de datos.");
+                    return;
+                }
 
-            System.out.println("Bienvenido, usuario tipo: " + tipo);
+                System.out.println("Bienvenido, usuario tipo: " + tipo);
 
-            switch (tipo) {
-                case "Alumno":
-                    menuAlumno(id);
-                    break;
-                case "Profesor":
-                    menuProfesor(id);
-                    break;
-                case "Administrativo":
-                    menuAdministrativo(id);
-                    break;
-                default:
-                    System.out.println("Tipo de usuario desconocido.");
+                switch (tipo) {
+                    case "Alumno":
+                        menuAlumno(id);
+                        break;
+                    case "Profesor":
+                        menuProfesor(id);
+                        break;
+                    case "Administrativo":
+                        menuAdministrativo(id);
+                        break;
+                    default:
+                        System.out.println("Tipo de usuario desconocido.");
+                }
+
+            } catch (NumberFormatException e) {
+                System.out.println("Error: El ID debe ser un número entero.");
+            } catch (Exception e) {
+                System.out.println("Ocurrió un error inesperado: " + e.getMessage());
             }
 
         } else if (eleccion == 2) {
